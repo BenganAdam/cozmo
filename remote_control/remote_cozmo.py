@@ -233,6 +233,19 @@ class RemoteControlCozmo:
         if len(self.action_queue) > 10:
             self.action_queue.pop(0)
         self.action_queue.append(new_action)
+        
+    # TODO: not sure if this will work
+    def try_set_backpack_green(self):
+        try:
+            self.cozmo.set_all_backpack_lights(cozmo.lights.green_light)
+            return True
+        except cozmo.exceptions.RobitBusy:
+            return False
+        
+    # TODO: not sure if this will work
+    def set_backpack_green(self):
+        self.queue_action((self.try_set_backpack_green))
+        self.update()
 
 
     def try_say_text(self, text_to_say):

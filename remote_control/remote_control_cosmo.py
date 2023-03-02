@@ -129,14 +129,28 @@ def handle_button1():
     if remote_control_cozmo.cooperate:
         remote_control_cozmo.say_text("i cooperate")
         # play successful response
+        remote_control_cozmo.set_all_backpack_lights(cozmo.lights.green_light)
+        # set happy face
+        remote_control_cozmo.play_anim_trigger(cozmo.anim.Triggers.CodeLabHappy, ignore_body_track=True).wait_for_completed() #happy face?
+        remote_control_cozmo.time.sleep(2) 
+        remote_control_cozmo.set_all_backpack_lights(cozmo.lights.off_light)
     else:
         remote_control_cozmo.say_text("i mirror")
         # check what the user did the last time
         if remote_control_cozmo.user_cooperated_last_time:
             remote_control_cozmo.say_text("i cooperate")
+            remote_control_cozmo.set_all_backpack_lights(cozmo.lights.green_light)
+            remote_control_cozmo.play_anim_trigger(cozmo.anim.Triggers.CodeLabHappy, ignore_body_track=True).wait_for_completed() #happy face?
+            remote_control_cozmo.time.sleep(2) 
+            remote_control_cozmo.set_all_backpack_lights(cozmo.lights.off_light)
         else:
             remote_control_cozmo.say_text("i betray")
-        # if cozmo betrayed user, play appropriate animation
+            # if cozmo betrayed user, play appropriate animation
+            remote_control_cozmo.set_all_backpack_lights(cozmo.lights.blue_light)
+            # set evil/satisfied/happy face anim
+            remote_control_cozmo.play_anim_trigger(cozmo.anim.Triggers.CodeLabHappy, ignore_body_track=True).wait_for_completed() #happy face?
+            remote_control_cozmo.time.sleep(2)
+            remote_control_cozmo.set_all_backpack_lights(cozmo.lights.off_light)
     # log cooperation
     remote_control_cozmo.user_cooperated_last_time = True
     return ""
@@ -148,14 +162,31 @@ def handle_button2():
     if remote_control_cozmo.cooperate:
         remote_control_cozmo.say_text("i cooperate")
         # play betrayed response
+        remote_control_cozmo.set_all_backpack_lights(cozmo.lights.red_light)
+        # set angry/sad face anim
+        remote_control_cozmo.play_anim_trigger(cozmo.anim.Triggers.CozmoSaysBadWord, ignore_body_track=True).wait_for_completed() #triggers angry face?
+        remote_control_cozmo.time.sleep(2)
+        remote_control_cozmo.set_all_backpack_lights(cozmo.lights.off_light)
     else:
         remote_control_cozmo.say_text("i mirror")
         # check what the user did the last time
         if remote_control_cozmo.user_cooperated_last_time:
             remote_control_cozmo.say_text("i cooperate")
+            # betrayed anim
+            remote_control_cozmo.set_all_backpack_lights(cozmo.lights.red_light)
+            # set angry/sad face anim
+            remote_control_cozmo.play_anim_trigger(cozmo.anim.Triggers.CozmoSaysBadWord, ignore_body_track=True).wait_for_completed() #triggers angry face?
+            remote_control_cozmo.time.sleep(2)
+            remote_control_cozmo.set_all_backpack_lights(cozmo.lights.off_light)
+            
         else:
             remote_control_cozmo.say_text("i betray")
-        # if cozmo betrayed user, play appropriate animation
+            # if cozmo betrayed user, play appropriate animation
+            remote_control_cozmo.set_all_backpack_lights(cozmo.lights.blue_light)
+            # set evil/satisfied/happy face anim
+            remote_control_cozmo.play_anim_trigger(cozmo.anim.Triggers.CodeLabHappy, ignore_body_track=True).wait_for_completed() #happy face?
+            remote_control_cozmo.time.sleep(2)
+            remote_control_cozmo.set_all_backpack_lights(cozmo.lights.off_light)
     # log cooperation
     remote_control_cozmo.user_cooperated_last_time = False
     return ""
